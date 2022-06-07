@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import styles from './App.module.css';
+import { Select } from './components/Select';
+import { Option } from './interfaces';
 
-function App() {
+const options: Option[] = [
+  {
+    label: "Audi",
+    value: "audi"
+  },
+  {
+    label: "Ferrari",
+    value: "ferrari"
+  },
+  {
+    label: "Mercedes Benz",
+    value: "mercedes"
+  },
+  {
+    label: "BMW",
+    value: "bmw"
+  },
+  {
+    label: "Tesla",
+    value: "tesla"
+  },
+];
+
+const App: React.FC = () => {
+  const [selectedItem, setSelectedItem] = useState<Option | null>(null);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles['app']}>
+      <Select
+        placeholder='Select a car'
+        selected={selectedItem}
+        options={options}
+        onChange={(selection: Option) => setSelectedItem(selection)}
+      />
+      <p>Hello, my selection is {selectedItem?.label}</p>
     </div>
   );
-}
+};
 
 export default App;
